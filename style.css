@@ -45,6 +45,12 @@ tr:nth-child(even) {
     background-color: #f8f9fa;
 }
 
+/* Styling for Roll Number column */
+td:first-child {
+    font-size: 1.1em; /* Increase roll number size */
+    font-weight: bold;
+}
+
 .attendance-buttons button {
     display: inline-block;
     width: 40px;
@@ -55,7 +61,7 @@ tr:nth-child(even) {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .present-btn {
@@ -69,22 +75,26 @@ tr:nth-child(even) {
 }
 
 .attendance-buttons button:not(.active) {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .attendance-buttons button.active {
-    border: 2px solid #000; /* Or another strong indicator */
+    /* Stronger visual feedback when active */
+    background-color: #000;
+    color: white;
+    /* Or a border: border: 2px solid #000; */
     opacity: 1.0;
 }
 
-button:hover:not(.active) {
-    opacity: 0.8;
+.attendance-buttons button:active { /* Style for when button is being pressed */
+    transform: scale(0.95); /* Slightly shrink button */
 }
 
+/* Styling for the last two buttons */
 button {
-    display: block;
-    width: 250px;
-    margin: 15px auto;
+    display: block; /* Keep block to maintain margin auto behavior initially */
+    width: 280px; /* Increased size */
+    margin: 15px 0 15px 20px; /* Align to left with some margin */
     padding: 12px;
     background-color: #6c757d;
     color: white;
@@ -93,6 +103,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    text-align: center; /* Center text within the button */
 }
 
 #sendAbsentBtn {
@@ -125,4 +136,5 @@ button:hover {
     border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
     color: #333;
+    margin-left: 20px; /* Align with buttons */
 } 
