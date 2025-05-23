@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewDataBtn = document.getElementById('viewDataBtn');
     const dataDisplayArea = document.getElementById('dataDisplayArea');
 
-    // Initialize attendance status for 100 students
+    // Initialize attendance status for 100 students (Default to Present)
     const attendanceStatus = {};
     for (let i = 1; i <= 100; i++) {
-        attendanceStatus[i] = 'Absent'; // Default to Absent
+        attendanceStatus[i] = 'Present'; // Default to Present
     }
 
     // Function to render the attendance table
@@ -18,22 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${i}</td>
                 <td>
-                    <button class="present-btn" data-roll="${i}" style="background-color: green; color: white;">P</button>
-                    <button class="absent-btn" data-roll="${i}" style="background-color: red; color: white;">A</button>
+                    <button class="present-btn" data-roll="${i}">P</button>
+                    <button class="absent-btn" data-roll="${i}">A</button>
                 </td>
             `;
             attendanceTableBody.appendChild(row);
 
-            // Highlight selected button based on current status
+            // Add active class to selected button based on current status
             const presentBtn = row.querySelector('.present-btn');
             const absentBtn = row.querySelector('.absent-btn');
 
             if (attendanceStatus[i] === 'Present') {
-                presentBtn.style.backgroundColor = 'darkgreen';
-                absentBtn.style.backgroundColor = 'red';
+                presentBtn.classList.add('active');
+                absentBtn.classList.remove('active');
             } else {
-                presentBtn.style.backgroundColor = 'green';
-                absentBtn.style.backgroundColor = 'darkred';
+                presentBtn.classList.remove('active');
+                absentBtn.classList.add('active');
             }
         }
     }
@@ -56,7 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
     sendAbsentBtn.addEventListener('click', () => {
         const absentStudents = Object.keys(attendanceStatus).filter(roll => attendanceStatus[roll] === 'Absent');
         if (absentStudents.length > 0) {
-            dataDisplayArea.innerText = 'Absent Student Roll Numbers: ' + absentStudents.join(', ');
+            const message = 'Absent Student Roll Numbers: ' + absentStudents.join(', ');
+            // Attempt to open WhatsApp with pre-filled message
+            window.open('whatsapp://send?text=' + encodeURIComponent(message), '_blank');
+             dataDisplayArea.innerText = 'Attempting to open WhatsApp with absent numbers...';
         } else {
             dataDisplayArea.innerText = 'No students are absent.';
         }
